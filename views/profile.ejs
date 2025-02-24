@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Profile - <%= user.name %></title>
+    <style>
+      /* Basic styling for body */
+      body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #27272a; /* Zinc 900 */
+        color: #e4e4e7; /* Light text for dark background */
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+      }
+
+      /* Header styling */
+      header {
+        background-color: #1f1f1f; /* Dark header */
+        color: #fff;
+        padding: 20px;
+        text-align: center;
+        font-size: 24px;
+        font-weight: bold;
+        letter-spacing: 1px;
+      }
+
+      /* Main content area */
+      main {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-grow: 1; /* Allows the main content to take available space */
+        margin-top: 20px; /* Adds some space below the header */
+      }
+
+      /* Profile card styling */
+      .profile-card {
+        background-color: #1f1f1f; /* Dark card background */
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+        width: 320px;
+        text-align: center;
+        transition: transform 0.3s ease-in-out;
+      }
+
+      /* Hover effect on profile card */
+      .profile-card:hover {
+        transform: translateY(-10px);
+      }
+
+      .profile-card img {
+        width: 120px;
+        height: 120px;
+        object-fit: cover;
+        border-radius: 50%;
+        margin-bottom: 20px;
+        border: 4px solid #28a745; /* Green border for the avatar */
+      }
+
+      .profile-card h1 {
+        font-size: 26px;
+        color: #fff;
+        margin-bottom: 10px;
+        font-weight: bold;
+        letter-spacing: 1px;
+      }
+
+      .profile-info {
+        font-size: 16px;
+        color: #b0b0b0; /* Slightly lighter gray for text */
+        margin-bottom: 15px;
+        text-align: left;
+      }
+
+      .profile-info span {
+        font-weight: bold;
+        color: #e4e4e7; /* Light color for labels */
+      }
+
+      /* Button styling */
+      .logout-button {
+        display: inline-block;
+        padding: 12px 25px;
+        margin-top: 20px;
+        background-color: #dc3545;
+        color: #fff;
+        text-decoration: none;
+        border-radius: 5px;
+        font-weight: bold;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+        cursor: pointer;
+      }
+
+      .logout-button:hover {
+        background-color: #c82333;
+        transform: scale(1.05);
+      }
+
+      /* Responsiveness */
+      @media (max-width: 768px) {
+        .profile-card {
+          width: 90%;
+          padding: 20px;
+        }
+
+        .profile-card h1 {
+          font-size: 22px;
+        }
+
+        .profile-info {
+          font-size: 14px;
+        }
+
+        .logout-button {
+          padding: 10px 20px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header section with app name and profile image -->
+    <!-- <header>
+      My Application
+    </header> -->
+    <%- include('partials/header') %>
+    <main>
+      <!-- Profile Card -->
+      <div class="profile-card">
+        <img src="<%- user.avatar %>" alt="Profile Picture" />
+        <h1><%= user.name %></h1>
+        <div class="profile-info"><span>Email:</span> <%= user.email %></div>
+        <a href="/logout" class="logout-button">Logout</a>
+      </div>
+    </main>
+  </body>
+</html>

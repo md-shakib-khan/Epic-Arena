@@ -1,0 +1,56 @@
+<style>
+    /* Header section styling */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #1f2937;
+      color: #fff;
+      padding: 15px 30px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+  
+    /* App name styling */
+    .app-name {
+      font-size: 26px;
+      font-weight: bold;
+      letter-spacing: 1px;
+      transition: color 0.3s ease;
+    }
+  
+    .app-name:hover {
+      color: #60a5fa;
+    }
+  
+    /* Profile image container */
+    .profile-container {
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      overflow: hidden;
+      cursor: pointer;
+      border: 2px solid #60a5fa;
+      transition: transform 0.3s ease, border-color 0.3s ease;
+    }
+  
+    .profile-container:hover {
+      transform: scale(1.1);
+      border-color: #3b82f6;
+    }
+  
+    .profile-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  </style>
+  
+  <header>
+    <a href="/" style="text-decoration: none; color: inherit;">
+      <div class="app-name">Epic Arena</div>
+    </a>
+    <div class="profile-container" onclick="window.location.href='/profile'">
+      <img src="https://picsum.photos/200" alt="Profile" class="profile-image" />
+    </div>
+  </header>
+  

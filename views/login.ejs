@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= title %></title>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      /* Ensure the whole page takes up the entire height and has a Zinc-900 background */
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        background-color: #18181b; /* Zinc-900 background */
+        color: white; /* White text for contrast */
+      }
+
+      /* Basic styles to center content */
+      body {
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #18181b; /* Zinc-900 background */
+      }
+
+      h1 {
+        text-align: center;
+      }
+
+      .login-container {
+        text-align: center;
+      }
+
+      .google-btn {
+        display: inline-flex;
+        align-items: center;
+        padding: 12px 30px;
+        font-size: 16px;
+        font-weight: bold;
+        color: white;
+        background-color: #4285f4; /* Google blue color */
+        border-radius: 5px;
+        text-decoration: none;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: background-color 0.3s ease, transform 0.3s ease;
+      }
+
+      .google-btn:hover {
+        background-color: #3367d6; /* Darker blue on hover */
+        transform: scale(1.05);
+      }
+
+      .google-btn:active {
+        background-color: #254edb; /* Even darker blue on click */
+      }
+
+      .google-btn i {
+        margin-right: 10px; /* Space between the icon and text */
+      }
+
+      /* Optional: Add a bit of margin between the title and the button */
+      h1 {
+        margin-bottom: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="login-container">
+      <h1>Login Page</h1>
+      <a href="/auth/google" class="google-btn">
+        <i class="fab fa-google"></i> Sign in with Google
+      </a>
+    </div>
+  </body>
+</html>
