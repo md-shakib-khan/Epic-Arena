@@ -33,7 +33,9 @@ const middleware = [
   },
   express.static(path.join(__dirname, "public")),
   session({
-    secret: "de0f61fdbe8e1cab3bda4f81fdfae2d01cfee8956623e76e32e6196b2641d3b3"
+    secret: "de0f61fdbe8e1cab3bda4f81fdfae2d01cfee8956623e76e32e6196b2641d3b3",
+    resave: false,
+    saveUninitialized: false,
   }),
   passport.initialize(),
   passport.session(),
