@@ -156,7 +156,7 @@ app.get("/login", verifyAuth, (req, res) => {
 
 // Create HTTP server
 const server = app.listen(port, async () => {
-  await connectDB();
+  // await connectDB();
   console.log(`Server running on http://localhost:${port}`);
 });
 
