@@ -6,10 +6,12 @@ import session from "express-session";
 import passport from "passport";
 import { Strategy as GoogleStrategy } from "passport-google-oauth20";
 
+import MongoStore from "connect-mongo";
 import jwt from "jsonwebtoken";
 import path from "path";
 import { Server } from "socket.io";
 import { connectDB } from "./database/connectDB.js";
+import { User } from "./database/userModel.js";
 import { verifyAuth, verifyUser } from "./middleware/verifyUser.js";
 
 // Use import.meta.url to get the directory path in ES modules
@@ -33,9 +35,21 @@ const middleware = [
   },
   express.static(path.join(__dirname, "public")),
   session({
-    secret: "de0f61fdbe8e1cab3bda4f81fdfae2d01cfee8956623e76e32e6196b2641d3b3",
+    secret: process.env.SESSION_SECRET,
     resave: false,
-    saveUninitialized: false,
+    saveUninitialized: true,
+    store: MongoStore.create({
+      mongoUrl:
+        process.env.NODE_ENV === "development"
+          ? process.env.MONGO_DB_URI_DEV
+          : process.env.MONGO_DB_URI_PRO, // Your MongoDB connection URL
+      collectionName: "sessions",
+    }),
+    cookie: {
+      secure: process.env.NODE_ENV === "production",
+      httpOnly: true,
+      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+    },
   }),
   passport.initialize(),
   passport.session(),
@@ -71,7 +85,7 @@ app.get(
 app.get(
   "/auth/google/callback",
   passport.authenticate("google", { failureRedirect: "/" }),
-  (req, res) => {
+  async (req, res) => {
     if (!req.user) {
       return res.redirect("/login"); // Redirect if no user data is found
     }
@@ -84,6 +98,20 @@ app.get(
     };
 
     try {
+      // Check if user exists in the database
+      let user = await User.findOne({ email: req.user.emails[0].value });
+
+      // If user does not exist, create a new one
+      if (!user) {
+        user = new User({
+          name: req.user.displayName,
+          email: req.user.emails[0].value,
+          avatar: req.user.photos[0].value,
+        });
+
+        await user.save(); // Save the user in the database
+      }
+
       // Generate a JWT token with a 1-hour expiration
       const token = jwt.sign(payload, process.env.JWT_SECRET, {
         expiresIn: "7d",
@@ -156,7 +184,7 @@ app.get("/login", verifyAuth, (req, res) => {
 
 // Create HTTP server
 const server = app.listen(port, async () => {
-  // await connectDB();
+  await connectDB();
   console.log(`Server running on http://localhost:${port}`);
 });
 
