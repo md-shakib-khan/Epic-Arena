@@ -139,6 +139,7 @@ app.get("/logout", (req, res) => {
 
 // Set EJS as the view engine
 app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "views"));
 
 // Route for rendering an EJS view (example)
 app.get("/", verifyUser, (req, res) => {
